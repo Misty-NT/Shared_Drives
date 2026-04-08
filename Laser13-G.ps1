@@ -2,7 +2,7 @@ Add-Type -AssemblyName PresentationFramework
 
 $drive = "G:"
 $newPath = "\\AT-FS1\GDrive"
-$username = "Accutech\misty"
+$username = "Accutech\laser13"
 
 Write-Host "Checking G: drive..." -ForegroundColor Cyan
 
