@@ -1,16 +1,16 @@
 Add-Type -AssemblyName PresentationFramework
 
-$drive = "G:"
-$newPath = "\\AT-FS1\GDrive"
-$username = "Accutech\laser1"
+$drive = "F:"
+$newPath = "\\AT-FS1\FDrive"
+$username = "Accutech\laser13"
 
-Write-Host "Checking G: drive..." -ForegroundColor Cyan
+Write-Host "Checking F: drive..." -ForegroundColor Cyan
 
 # Check existing mapping
 $existing = cmd /c "net use" | Where-Object { $_ -match "F:" }
 
 if ($existing) {
-    $message = "G: is already mapped.`n`n$existing`n`nDo you want to replace it with:`n$newPath ?"
+    $message = "F: is already mapped.`n`n$existing`n`nDo you want to replace it with:`n$newPath ?"
     $result = [System.Windows.MessageBox]::Show($message, "Drive Already In Use", "YesNo", "Warning")
 
     if ($result -ne "Yes") {
@@ -27,7 +27,7 @@ $securePassword = Read-Host "Enter password for $username" -AsSecureString
 $credential = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
 $password = $credential.GetNetworkCredential().Password
 
-Write-Host "Mapping G: drive..." -ForegroundColor Cyan
+Write-Host "Mapping F: drive..." -ForegroundColor Cyan
 
 # Map drive
 $mapResult = cmd /c "net use $drive $newPath /user:$username $password /persistent:yes"
@@ -38,10 +38,10 @@ Write-Host $mapResult
 $verify = cmd /c "net use" | Where-Object { $_ -match "F:" }
 
 if ($verify) {
-    Write-Host "SUCCESS: G: mapped." -ForegroundColor Green
+    Write-Host "SUCCESS: F: mapped." -ForegroundColor Green
 
     [System.Windows.MessageBox]::Show(
-        "G: drive successfully mapped to $newPath",
+        "F: drive successfully mapped to $newPath",
         "Success",
         "OK",
         "Information"
